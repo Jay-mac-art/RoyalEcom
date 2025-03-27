@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: linear-gradient(
+    135deg,
+    #1a1033 0%, /* Deep purple */
+    #2a1b5e 25%, /* Dark blue-purple */
+    #3b2a8c 50%, /* Vibrant purple */
+    #4a3ab9 75%, /* Bright purple */
+    #5b4ae6 100% /* Light purple */
+  );
+  background-size: 200% 200%;
+  animation: northernLights 15s ease infinite;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+@keyframes northernLights {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+input, button {
+  transition: all 0.3s ease;
+}
