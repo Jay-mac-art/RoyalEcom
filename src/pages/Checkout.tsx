@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,14 +10,18 @@ export const Checkout = () => {
     orderId: string;
     total: number;
     generatedDiscountCode: string | null;
+    items: typeof cart;
   } | null>(null);
   const navigate = useNavigate();
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  useEffect(() => {
+    console.log('Cart in Checkout:', cart);
+  }, [cart]);
+
   const handleCheckout = async () => {
-    // Simulate POST /api/checkout
-    const isNthOrder = Math.random() < 0.2; // 20% chance to simulate nth order
+    const isNthOrder = Math.random() < 0.2;
     let generatedDiscountCode = null;
     if (isNthOrder) {
       generatedDiscountCode = `DISCOUNT-${Math.random()
@@ -25,11 +29,11 @@ export const Checkout = () => {
         .substr(2, 8)
         .toUpperCase()}`;
     }
-    // TODO: In production, validate discountCode with server
     setOrderConfirmation({
       orderId: Math.random().toString(36).substr(2, 9).toUpperCase(),
       total,
       generatedDiscountCode,
+      items: [...cart],
     });
     clearCart();
   };
@@ -43,21 +47,26 @@ export const Checkout = () => {
         <div className="text-center text-white max-w-md mx-auto bg-gray-900/80 p-6 rounded-lg shadow-xl">
           <p className="text-lg">Thank you for your order!</p>
           <p className="mt-2">Order ID: {orderConfirmation.orderId}</p>
-          <p className="mt-2">Total: ${orderConfirmation.total.toFixed(2)}</p>
-          {orderConfirmation.generatedDiscountCode && (
-            <p className="mt-4 text-purple-400">
-              Congratulations! Use this 10% discount code on your next purchase:{' '}
-              <span className="font-bold">
-                {orderConfirmation.generatedDiscountCode}
-              </span>
-            </p>
-          )}
-          <button
-            onClick={() => navigate('/')}
-            className="mt-6 bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-all duration-300 hover:shadow-lg"
-          >
-            Continue Shopping
-          </button>
+          <div className="mt-4">
+            <h3 className="text-xl font-semibold">Ordered Items</h3>
+            {orderConfirmation.items.map((item) => (
+              <div key={item.productId} className="flex items-center justify-between mt-4">
+                <div className="flex items-center space-x-4">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-16 h-16 object-cover rounded-lg"
+                  />
+                  <div className="text-left">
+                    <p className="font-medium">{item.name}</p>
+                    <p className="text-sm text-gray-400">x {item.quantity}</p>
+                  </div>
+                </div>
+                <span>${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+          {/* ... rest of the order confirmation component */}
         </div>
       </div>
     );
@@ -71,18 +80,27 @@ export const Checkout = () => {
       <div className="px-4 max-w-md mx-auto">
         <h2 className="text-2xl font-semibold mb-4 text-white">Order Summary</h2>
         <div className="bg-gray-900/80 p-4 rounded-lg shadow-md">
-          {cart.map((item) => (
-            <div
-              key={item.productId}
-              className="flex justify-between mb-2 text-white"
-            >
-              <span>
-                {item.name} x {item.quantity}
-              </span>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
-            </div>
-          ))}
-          <div className="mt-6">
+          {cart.length === 0 ? (
+            <p className="text-white">No items in cart.</p>
+          ) : (
+            cart.map((item) => (
+              <div key={item.productId} className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-4">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-12 h-12 object-cover rounded-lg"
+                  />
+                  <div className="text-white">
+                    <p className="font-medium">{item.name}</p>
+                    <p className="text-sm text-gray-400">x {item.quantity}</p>
+                  </div>
+                </div>
+                <span className="text-white">${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            ))
+          )}
+               <div className="mt-6">
             <label htmlFor="discount" className="block mb-2 text-white">
               Discount Code
             </label>
@@ -96,9 +114,7 @@ export const Checkout = () => {
             />
           </div>
           <div className="mt-8">
-            <p className="text-xl font-bold text-white">
-              Total: ${total.toFixed(2)}
-            </p>
+            <p className="text-xl font-bold text-white">Total: ${total.toFixed(2)}</p>
             <button
               onClick={handleCheckout}
               disabled={cart.length === 0}
@@ -107,6 +123,7 @@ export const Checkout = () => {
               Place Order
             </button>
           </div>
+
         </div>
       </div>
     </div>

@@ -4,11 +4,10 @@ import Modal from 'react-modal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ShoppingCart } from 'lucide-react';
+import { useStore } from '../store/useStore';
 
-// Set the app element for accessibility
 Modal.setAppElement('#root');
 
-// Assume Product type and cart state management are defined elsewhere
 interface Product {
   id: number;
   name: string;
@@ -24,15 +23,10 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
-  // Simulated cart addition (replace with your actual cart logic)
-  const addToCart = (product: Product) => {
-    console.log(`${product.name} added to cart`);
-    // Add your cart state logic here (e.g., using Zustand or Context)
-  };
+  const addToCart = useStore((state) => state.addToCart); // Correct hook usage
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart(product); // Properly use store function
     setIsModalOpen(false);
     toast.success(
       <div>
@@ -46,7 +40,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>,
       {
         position: "bottom-right",
-        autoClose: 5000, // Disappears after 5 seconds
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -82,7 +76,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
 
-      {/* Confirmation Popup */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
