@@ -65,7 +65,7 @@ Set Up Env File Run BE Server and Install npm dependecy
 - npm v8+
 - Git
 
-### Backend Setup
+### Frontend Setup
 
 1. **Navigate to backend directory**
    ```bash
@@ -76,3 +76,23 @@ Set Up Env File Run BE Server and Install npm dependecy
 
     Start development server
     npm run dev
+
+
+  ```
+
+## Getting Started
+
+### Prerequisites
+- Node.js v16+
+- npm v8+
+- Git
+
+### Backend Setup Add Pgsql connection profile and env varaibles
+
+    npm install
+
+    Start development server
+    npm run dev
+
+    Run tests
+    npm test
