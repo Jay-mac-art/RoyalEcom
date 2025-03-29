@@ -22,13 +22,13 @@ A full-stack e-commerce application with cart functionality and automated discou
 ## Technologies Used
 
 ### Backend
-- **Node.js** with **Express.js**
+- **Nest.js** with **Typeorm.js**
 - **TypeScript** for type safety
 - **Jest** for unit testing
 - Postgres 
 
 ### Frontend
-- **React** with **TypeScript**
+- **ReactVite** with **TypeScript**
 - **Tailwind CSS** for styling
 - **Axios** for API communication
 - **React Router** for navigation
