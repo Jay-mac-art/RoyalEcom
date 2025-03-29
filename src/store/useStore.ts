@@ -31,7 +31,8 @@ export const useStore = create<Store>((set) => ({
               quantity: 1,
               price: product.price,
               name: product.name,
-              image: product.image
+              image: product.image,
+              description : product.description
             },
           ],
         };

@@ -12,4 +12,5 @@ export interface CartItem {
   price: number;
   name: string;
   image: string; 
+  description : string;
 }

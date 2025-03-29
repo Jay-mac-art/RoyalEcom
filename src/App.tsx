@@ -5,22 +5,26 @@ import { Home } from './pages/Home';
 import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Admin } from './pages/Admin';
+import { Login } from './pages/Login'; 
 import { ToastContainer } from 'react-toastify';
+import { Register } from './pages/Register';
 import 'react-toastify/dist/ReactToastify.css';
-import { ProductCard } from './components/ProductCard';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-900">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
-      <ToastContainer />
+        <Navbar />
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/" element={<Login />} /> 
+          <Route path="/login" element={<Login />} /> 
+          <Route path="/register" element={<Register />} />
+        </Routes>
+        <ToastContainer />
       </div>
     </Router>
   );
