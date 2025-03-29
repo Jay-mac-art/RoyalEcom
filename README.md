@@ -55,6 +55,47 @@ A full-stack e-commerce application with cart functionality and automated discou
     └── main.tsx
     └── vite-env.d.ts
 ```
+## Project Structure BE
+```
+└── 📁src
+    └── 📁decorator
+        └── auth.decorator.ts
+        └── user.decorator.ts
+    └── 📁entities
+        └── configuration.entity.ts
+        └── discountCode.entity.ts
+        └── order.entity.ts
+        └── orderItem.entity.ts
+        └── user.entity.ts
+    └── 📁guard
+        └── jwt.guard.ts
+        └── role.guard.ts
+    └── 📁module
+        └── 📁admin
+            └── admin.controller.ts
+            └── admin.module.ts
+            └── admin.service.ts
+            └── 📁dto
+                └── admin.dto.ts
+        └── 📁auth
+            └── auth.controller.ts
+            └── auth.module.ts
+            └── auth.service.ts
+            └── 📁dto
+                └── auth.dto.ts
+        └── 📁checkout
+            └── checkout.controller.ts
+            └── checkout.module.ts
+            └── checkout.service.ts
+            └── 📁dto
+                └── checkout.dto.ts
+    └── app.controller.spec.ts
+    └── app.controller.ts
+    └── app.module.ts
+    └── app.service.ts
+    └── main.controller.spec.ts
+    └── main.ts
+```
 
 Set Up Env File Run BE Server and Install npm dependecy
 
@@ -78,7 +119,7 @@ Set Up Env File Run BE Server and Install npm dependecy
     npm run dev
 
 
-  ```
+  ```bash
 
 ## Getting Started
 
